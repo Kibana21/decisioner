@@ -101,27 +101,44 @@ when the guide file is missing or empty.
 
 ## Setup
 
-Needs Python 3.10+. The command-line classifier needs nothing else when you use an API key.
-The API server needs `pip install -r requirements.txt` (already installed in `.venv`).
+Needs Python 3.10+.
 
-1. Create a `.env` file in the project folder:
-
-   ```
-   AZURE_ENDPOINT=https://<resource>.services.ai.azure.com
-   DEPLOYMENT_NAME=<your Microsoft-Decision-1 deployment name>
-   AZURE_API_KEY=<key from the deployment details page>
-   ```
-
-   - The endpoint can be the resource root or the portal's `.../models` URL; both work.
-   - `DEPLOYMENT_NAME` is the name you gave the deployment, not the model name.
-   - Variables already set in your shell override `.env`.
-
-2. To use Microsoft Entra ID instead of a key, leave out `AZURE_API_KEY`, run `az login`, and
-   install `azure-identity`. It's already in `.venv`:
+1. **Get the code and create a virtual environment**
 
    ```bash
-   source .venv/bin/activate
+   git clone https://github.com/Kibana21/decisioner.git
+   cd decisioner
+   python3 -m venv .venv
+   source .venv/bin/activate        # Windows: .venv\Scripts\activate
    ```
+
+2. **Install the packages**
+
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+   `lob_classifier.py` needs only the standard library when you use an API key. The packages are for
+   the API server and for Microsoft Entra ID sign-in.
+
+3. **Create your `.env` from the template**
+
+   ```bash
+   cp .env.example .env
+   ```
+
+   Then fill in the values from your deployment's details page in the [Foundry portal](https://ai.azure.com):
+
+   | Variable | Required | Value |
+   | --- | --- | --- |
+   | `AZURE_ENDPOINT` | Yes | Resource endpoint, e.g. `https://<resource>.services.ai.azure.com`. The portal's `.../models` URL works too |
+   | `DEPLOYMENT_NAME` | Yes | The name you gave the deployment, not the model name |
+   | `AZURE_API_KEY` | Yes, unless you use Entra ID | Key from the deployment details page. Leave it empty and run `az login` to use Microsoft Entra ID |
+   | `ROUTING_GUIDE` | No | API server only. Path to the routing guide (default `context/routing_guide.md`) |
+   | `KEEPALIVE_SECONDS` | No | API server only. Keep-warm ping interval (default `60`, `0` disables) |
+
+   `.env` is git-ignored, so your key never gets committed. Variables already set in your shell
+   override `.env`.
 
 ## Usage
 
@@ -172,10 +189,31 @@ Misrouted questions are listed under the matrix. `data/lob_predictions.csv` hold
 to Azure when it starts and keeps it warm, so each request pays only the API round trip, with no
 connection setup.
 
-```bash
-source .venv/bin/activate
-uvicorn api:app --port 8765
-```
+### Start the server
+
+1. Complete [Setup](#setup): virtual environment, `pip install -r requirements.txt`, and `.env`.
+2. Start the server from the project folder:
+
+   ```bash
+   source .venv/bin/activate
+   uvicorn api:app --port 8765
+   ```
+
+   Wait until it logs `Warm connection to Azure opened` and `Application startup complete`.
+   Add `--reload` while developing to restart on code changes. Add `--host 0.0.0.0` to accept
+   requests from other machines.
+3. Open the interactive docs at http://127.0.0.1:8765/docs, or check it's up:
+
+   ```bash
+   curl localhost:8765/health
+   ```
+
+4. Stop it with `Ctrl+C`.
+
+If startup fails with `address already in use`, another process holds the port. Use a different
+one, e.g. `--port 8766`.
+
+### Call it
 
 ```bash
 curl -X POST localhost:8765/classify -H 'Content-Type: application/json' \
@@ -227,7 +265,8 @@ In testing, four requests on a warm connection all had `connection_setup_ms: 0`,
 ## Project layout
 
 ```
-.env                       endpoint, deployment, API key (keep out of version control)
+.env                       your endpoint, deployment, API key (git-ignored; create from .env.example)
+.env.example               template listing every setting
 lob_classifier.py          the command-line program
 api.py                     FastAPI server (same LOBs, guide, and instructions)
 requirements.txt           packages for the API server

@@ -1,4 +1,9 @@
+# Packages for the API server (api.py).
+# lob_classifier.py needs only the standard library when you use an API key.
+#   pip install -r requirements.txt
+# Tested with: fastapi 0.143.0, uvicorn 0.54.0, httpx 0.28.1, azure-identity 1.26.0 (Python 3.14)
+
 fastapi>=0.115
 uvicorn>=0.30
 httpx>=0.27
-azure-identity>=1.15  # only for Microsoft Entra ID auth
+azure-identity>=1.15  # only needed for Microsoft Entra ID auth (no AZURE_API_KEY)
