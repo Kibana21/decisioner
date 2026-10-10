@@ -1,0 +1,41 @@
+id,question,expected_lob,requires_context
+1,"My client wants to change the beneficiary on his whole life policy. Which form do I use?",Policy Servicing,no
+2,"Customer moved house last week. How do I update the mailing address on all her policies?",Policy Servicing,no
+3,"Client wants to switch his premium payment from annual to monthly GIRO.",Policy Servicing,no
+4,"Policy lapsed last month due to a missed premium. Can we reinstate it without fresh medicals?",Policy Servicing,no
+5,"Client is asking what the surrender value of his endowment plan is today.",Policy Servicing,no
+6,"How do I submit a fund switch request for my client's ILP?",Policy Servicing,no
+7,"Customer wants to take a policy loan against the cash value of her plan.",Policy Servicing,no
+8,"The credit card used for my client's auto-debit has expired. How do I update the card?",Policy Servicing,no
+9,"What's the status of the death claim I submitted for my client's late father?",Policy Servicing,yes
+10,"Client lost the original policy contract and needs a duplicate copy.",Policy Servicing,no
+11,"SME client wants a quote for group term life for their 25 employees.",Corporate Insurance,no
+12,"How do I add three new hires to ABC Pte Ltd's group hospitalisation plan?",Corporate Insurance,yes
+13,"An employee resigned from my client's company. Please remove her from the group medical scheme.",Corporate Insurance,yes
+14,"My corporate client's group insurance renews next month and they want the revised premium.",Corporate Insurance,no
+15,"Employer wants to add outpatient GP and dental benefits to their staff plan.",Corporate Insurance,no
+16,"Business owner wants keyman cover on his CTO, with the company as policy owner and payer.",Corporate Insurance,yes
+17,"An employee of my client is asking how to submit a claim under the company's group outpatient plan.",Corporate Insurance,yes
+18,"Two partners want buy-sell cover for each other, paid for by their firm.",Corporate Insurance,yes
+19,"Where can I get the member census template for a new group policy submission?",Corporate Insurance,no
+20,"Corporate client has a new HR manager. Can we change the billing contact on their group plan?",Corporate Insurance,yes
+21,"Client asks how he can earn more Vitality points from gym visits.",AIA Vitality,no
+22,"Customer's steps from her Fitbit are not syncing into her Vitality points.",AIA Vitality,yes
+23,"How does my client move from Silver to Gold status?",AIA Vitality,no
+24,"Client's Vitality Gold premium discount isn't reflected on this year's renewal notice.",AIA Vitality,yes
+25,"Customer wants to know how to redeem the weekly coffee reward.",AIA Vitality,no
+26,"Does an annual health screening count toward my client's points?",AIA Vitality,no
+27,"Can my client add his wife to his Vitality membership?",AIA Vitality,no
+28,"Client's Vitality membership fee was deducted twice this month.",AIA Vitality,yes
+29,"Client is asking about the smartwatch deal and the monthly activity targets for cashback.",AIA Vitality,no
+30,"How do I enrol a newly issued policyholder into Vitality?",AIA Vitality,no
+31,"I can't log into the agent portal. It says my account is locked.",IT Helpdesk,no
+32,"iPoS keeps crashing when I try to generate a benefit illustration.",IT Helpdesk,no
+33,"The VPN on my laptop won't connect when I work from home.",IT Helpdesk,no
+34,"The e-signature step fails every time my customer signs on my tablet.",IT Helpdesk,no
+35,"Customer changed her phone number and now can't receive the OTP to log into the customer app.",IT Helpdesk,yes
+36,"I need access to the shared drive with the agency's training materials.",IT Helpdesk,no
+37,"Outlook stopped syncing email on my phone.",IT Helpdesk,no
+38,"The commission statement page shows an error 500 when I open it.",IT Helpdesk,no
+39,"How do I reset my two-factor authentication token for the agent portal?",IT Helpdesk,no
+40,"Printing policy documents from the portal gives me a blank PDF.",IT Helpdesk,no
